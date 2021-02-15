@@ -1,0 +1,19 @@
+{
+  "required_api_version": "^2.0.0",
+  "name": "Mac Address Extension",
+  "description": "Search List of Mac Addresses. Format xx:xx:xx:xx:xx:xx",
+  "developer_name": "waldoeGeek",
+  "icon": "images/icon.png",
+  "options": {
+    "query_debounce": 0.1
+  },
+  "preferences": [
+    {
+      "id": "mac_finder_kw",
+      "type": "keyword",
+      "name": "Mac Finder",
+      "description": "Find the vendor associated with a mac address.\n Accepted formats: xx:xx:xx:xx:xx:xx or xx-xx-xx-xx-xx-xx or xxxxxxxxxxxx",
+      "default_value": "mac"
+    }
+  ]
+}
