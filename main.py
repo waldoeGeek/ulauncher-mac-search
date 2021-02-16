@@ -1,16 +1,14 @@
 from src.mac import Vendor
 from ulauncher.api.client.Extension import Extension
 from ulauncher.api.client.EventListener import EventListener
-from ulauncher.api.shared.event import KeywordQueryEvent, ItemEnterEvent
+from ulauncher.api.shared.event import KeywordQueryEvent
 from ulauncher.api.shared.item.ExtensionResultItem import ExtensionResultItem
 from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
 from ulauncher.api.shared.action.HideWindowAction import HideWindowAction
+from ulauncher.api.shared.action.OpenUrlAction import OpenUrlAction
+from ulauncher.api.shared.action.CopyToClipboardAction import CopyToClipboardAction
+from ulauncher.api.shared.action.DoNothingAction import DoNothingAction
 
-
-mac = 'dc:71:96:2f:24:c5'
-# search_url = 'https://hwaddress.com/?q=dc:71:96:2f:24:c4'
-
-print(Vendor.search_vendor(mac))
 
 class DemoExtension(Extension):
 
@@ -38,22 +36,39 @@ class KeywordQueryEventListener(EventListener):
             query = Vendor.format_mac(query)
             # url = search_url + query
             mac_list = Vendor.search_vendor(query)
+            # if mac_list['vendor'] == 'Not Found!':
+            #     pass
+            # else:
+            #     url = mac_list['url']
+            #     items.append(ExtensionResultItem(
+            #         icon='images/success_icon.png',
+            #         name=mac_list['vendor'],
+            #         description=query,
+            #         on_enter=OpenUrlAction(url)
+            #     ))
+
             for result in mac_list:
-                if result == 'Not Found!':
+                url = mac_list[0]['url']
+                vendor = mac_list[0]['vendor']
+                if vendor == 'Not Found!':
                     items.append(ExtensionResultItem(icon='images/error_icon.png',
-                                                     name=result,
+                                                     name=vendor,
                                                      description=query,
                                                      on_enter=HideWindowAction()))
                 else:
+                    # url = mac_list['url']
                     items.append(ExtensionResultItem(
                         icon='images/success_icon.png',
-                        name=result,
+                        name=vendor,
                         description=query,
-                        on_enter=HideWindowAction()
+                        on_enter=OpenUrlAction(url),
+                        on_alt_enter=CopyToClipboardAction(url)
+                        # on_enter=HideWindowAction()
                     ))
                                                      # on_enter=HideWindowAction()))
 
             return RenderResultListAction(items)
+            import ipdb; ipdb.set_trace()
         except Exception as e:
             items.append(ExtensionResultItem(icon='images/error_icon.png',
                                              name='ERROR',

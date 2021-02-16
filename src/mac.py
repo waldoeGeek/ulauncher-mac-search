@@ -7,7 +7,7 @@ vendor_dict = {}
 # vendor_file = "new.oui.txt"
 vendor_file = os.path.dirname(__file__) + '/../new.oui.txt'
 
-search_url = 'https://hwaddress.com/?q=dc:71:96:2f:24:c4'
+search_url = 'https://hwaddress.com/?q='
 
 #
 class Vendor():
@@ -52,14 +52,21 @@ class Vendor():
         # check ditionary for query
         if key in dict:
             value = dict[key]
-            new_list.append(re.sub(r'\t', ' ', value.replace(',', ' ')))
+            vendor = re.sub(r'\t', ' ', value.replace(',', ' '))
+            # new_list.append(re.sub(r'\t', ' ', value.replace(',', ' ')))
             # return new_list
             # list = {
             #     "vendor": new_list,
             #     "url": search_url + mac
             # }
-            # # return list
-            return new_list
+
+            list = {
+                0: {"vendor": value,
+                    "url": search_url + mac}
+            }
+
+            return list
+            # return new_list
 
         else:
             new_list.append('Not Found!')
@@ -67,14 +74,15 @@ class Vendor():
             #     "vendor": new_list,
             #     "url": 'Not Found!'
             # }
-            # return list
+            list = {
+                0: {"vendor": value,
+                    "url": 'Not Found!'}
+            }
+            return list
 
-            return new_list
-
-# print(Vendor.format_mac('dc-71-96-00'))
-# print(Vendor.format_mac('dc719600000'))
-# print(Vendor.format_mac('dc:71:96:00:00'))
-# print(Vendor.search_vendor('DC:1:96'))
-# print(Vendor.search_vendor("DC:71:96"))
-# print(Vendor.search_vendor("8c:16:45"))
-# dc7196B00000
+            # return new_list
+#
+# list = Vendor.search_vendor("DC:71:96")
+#
+# print(list[0]['vendor'])
+# print(list[0]['url'])
