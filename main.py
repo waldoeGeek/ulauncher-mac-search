@@ -23,7 +23,7 @@ class KeywordQueryEventListener(EventListener):
         items = []
         try:
             query = event.get_argument() or ""
-            if len(query) < 6:
+            if len(query) < 8:
                 return RenderResultListAction([
                     ExtensionResultItem(
                         icon='images/searching_icon.png',
@@ -36,16 +36,6 @@ class KeywordQueryEventListener(EventListener):
             query = Vendor.format_mac(query)
             # url = search_url + query
             mac_list = Vendor.search_vendor(query)
-            # if mac_list['vendor'] == 'Not Found!':
-            #     pass
-            # else:
-            #     url = mac_list['url']
-            #     items.append(ExtensionResultItem(
-            #         icon='images/success_icon.png',
-            #         name=mac_list['vendor'],
-            #         description=query,
-            #         on_enter=OpenUrlAction(url)
-            #     ))
 
             for result in mac_list:
                 url = mac_list[0]['url']
@@ -63,9 +53,7 @@ class KeywordQueryEventListener(EventListener):
                         description=query,
                         on_enter=OpenUrlAction(url),
                         on_alt_enter=CopyToClipboardAction(url)
-                        # on_enter=HideWindowAction()
                     ))
-                                                     # on_enter=HideWindowAction()))
 
             return RenderResultListAction(items)
             import ipdb; ipdb.set_trace()
