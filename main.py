@@ -26,7 +26,7 @@ class KeywordQueryEventListener(EventListener):
         items = []
         try:
             query = event.get_argument() or ""
-            if len(query) < 8:
+            if len(query) < 6:
                 return RenderResultListAction([
                     ExtensionResultItem(
                         icon='images/searching_icon.png',
