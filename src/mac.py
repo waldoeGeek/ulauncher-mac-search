@@ -44,24 +44,21 @@ class Vendor():
             return mac[0:8].upper()
 
     def search_vendor(mac):
+        """Prepare the values to be passed into main.py"""
 
         # Setup dictionary
         dict = Vendor.file_to_dict()
         key = mac
-        new_list = []
+        # new_list = []
         # check ditionary for query
         if key in dict:
             value = dict[key]
             vendor = re.sub(r'\t', ' ', value.replace(',', ' '))
             # new_list.append(re.sub(r'\t', ' ', value.replace(',', ' ')))
             # return new_list
-            # list = {
-            #     "vendor": new_list,
-            #     "url": search_url + mac
-            # }
 
             list = {
-                0: {"vendor": value,
+                0: {"vendor": vendor,
                     "url": search_url + mac}
             }
 
@@ -69,13 +66,10 @@ class Vendor():
             # return new_list
 
         else:
-            new_list.append('Not Found!')
-            # list = {
-            #     "vendor": new_list,
-            #     "url": 'Not Found!'
-            # }
+            # new_list.append('Not Found!')
+
             list = {
-                0: {"vendor": value,
+                0: {"vendor": 'Not Found!',
                     "url": 'Not Found!'}
             }
             return list
