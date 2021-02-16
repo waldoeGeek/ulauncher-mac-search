@@ -1,3 +1,7 @@
+###
+# Mac vendor lookup extension for Ulauncher
+# By: waldoeGeek
+##
 from src.mac import Vendor
 from ulauncher.api.client.Extension import Extension
 from ulauncher.api.client.EventListener import EventListener
