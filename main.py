@@ -20,7 +20,6 @@ class DemoExtension(Extension):
         super(DemoExtension, self).__init__()
         self.subscribe(KeywordQueryEvent, KeywordQueryEventListener())
 
-
 class KeywordQueryEventListener(EventListener):
 
     def on_event(self, event, extension):
